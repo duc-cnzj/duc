@@ -1,0 +1,64 @@
+git init 初始化
+git config --global user.name 'duc'
+git config --global user.email '1025434218@qq.com'
+
+git config --global color.ui auto 提高命令输出的可读性
+git log 							查看提交日志
+git log --graph 					图表形式查看提交日志
+git log --pretty=short 				查看提交日志第一行
+git log 文件名   					查看某个文件的提交日志
+git log -p <文件名> 					查看<文件>提交所带来的变动
+
+git diff 							查看当前的工作树与暂存区的区别
+
+
+
+git add 文件名 						添加到仓库
+git ststus							查看状态
+git commit -m ""  提交  -am ''
+rm -rf 删除
+git rm 删除
+git push
+
+//分支
+git branch     						查看分支
+git branch  -a   					查看当前分支的相关信息
+git branch  -D 分支名   				删除分支	
+git checkout -b 分支名字     		创建分支
+git checkout  分支名字     			切换分支
+
+//merge
+git merge --no-ff 分支名    			为了明确记录下本次merge，加 --no-ff参数
+
+
+git commit --amend   				修改上一条的提交信息
+
+//回归版本
+git reset --hard  版本id				回到id的版本
+git rebase -i HEAD~2				将上两次的提交信息合并
+
+//取消commit
+git reset --hard <commit_id>
+git push origin HEAD --force
+
+//git push
+git push -u origin master  将当期分支的内容推送到远程origin的master仓库
+
+
+
+//git pull
+git pull origin 分支名
+
+github 账号密码
+1025434218@qq.ocm
+duc123243
+
+
+在linux上生成密匙：http://blog.csdn.net/wfdtxz/article/details/8678982
+
+echo "# ddd" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:DuC-cnZj/TaskManager.git        添加远程仓库：origin为标识符
+git push -u origin master
