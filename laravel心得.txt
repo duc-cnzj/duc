@@ -1,0 +1,84 @@
+我们的数据库表中经常会使用id自增，但是每次清空表后id并不是从1开始计数，总是接着之前的进行自增，那么解决呢？
+
+使用mysql的truncate命令，用法：truncate table 表名;
+
+这样表的id自增就会变回从1开始自增了。
+
+E:\wamp\www\laravel\my_laravel
+
+
+
+
+资源管理器处理的动作
+
+Verb		Path			Action		Route Name
+GET		/photo			index		photo.index
+GET		/photo/create		create		photo.create
+POST		/photo			store		photo.store
+GET		/photo/{photo}		show		photo.show
+GET		/photo/{photo}/edit	edit		photo.edit
+PUT/PATCH	/photo/{photo}		update		photo.update
+DELETE		/photo/{photo}		destroy		photo.destroy
+
+
+GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT用来更新资源，DELETE用来删除资源。
+
+54把配置项的更新方式由submit 变为ajax
+
+Homestead安装常见问题
+vagrant box add metadata.json
+git clone https://github.com/laravel/homestead.git Homestead
+bash init.sh
+
+
+{mount -t vboxsf -o uid=900,gid=900 vagrant /vagrant
+
+The error output from the command was:
+
+/sbin/mount.vboxsf: mounting failed with the error: No such device
+}
+{The SSH command responded with a non-zero exit status. Vagrant
+assumes that this means the command failed. The output for this command
+should be in the log above. Please read the output to determine what
+went wrong.
+}上两个问题下面这句解决
+sudo rm -rf /etc/udev/rules.d/70-persistent-net.rules
+
+ 
+修改配置文件homestead/srcipts/homestead.rb
+http://www.phpchina.com/portal.php?mod=view&aid=40338
+当配置homestead出现502 错误的时候 请看http://ju.outofmemory.cn/entry/249216
+
+formBuilder.php 查看form函数 具体的定义
+文件安装配置后比方说image-》composer update -composer.json-》 config->app.php 里面配置别名
+
+artisan make:request 创建验证规则
+
+linux严格区分大小写
+
+资源路由删除数据要加_method:delete,csrf_token
+
+有时候你可能想要在模型找不到的时候抛出异常，这在路由或控制器中非常有用，findOrFail和firstOrFail方法会获取查询到的第一个结果。然而，如果没有任何查询结果，Illuminate\Database\Eloquent\ModelNotFoundException异常将会被抛出：
+
+
+nginx laravel nginx.conf 的配置http://www.jb51.net/article/68466.htm
+
+如果你想在 Laravel 中使用 Redis sessions，你需要先通过 Composer 安装 predis/predis 扩展包 (~1.0)。
+########################
+
+homestead 0.4.0盒子如果要用laravel最新版 必须先升级下npm n 然后才可以mix
+
+homestead盒子在网盘里有1.0.1
+#############################
+vagrant启动报错The following SSH command responded with a non-zero exit status.
+
+
+解决  sudo rm -f /etc/udev/rules.d/70-persistent-net.rules 
+##################
+安装node_moudles 先设置淘宝镜像 npm config set registry https://registry.npm.taobao.org
+
+在设置完镜像后应该先升级npm ： npm install -g npm   然后 sudo npm install --no-bin-links
+忽略//5.4中npm的坑 http://blog.csdn.net/lj_550566181/article/details/54907686
+忽略//还要更新node.js http://www.jb51.net/article/52409.htm
+出现errors 3个 看老师教程npm debug ： npm rebuild node-sass --no-bin-links（还是得仔细研究教程啊）
+##########################

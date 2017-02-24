@@ -1,0 +1,4 @@
+为方便有的童鞋网络不给力，特提供一个0.4版本的homestead vagrant box，下载后.box文件放到C盘根目录，.json文件放到你用户目录下，然后git里执行vagrant box add metadata.json就可以了
+
+
+网盘链接：http://pan.baidu.com/s/1mhT9i44 密码：174s

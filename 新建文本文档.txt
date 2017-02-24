@@ -1,0 +1,4 @@
+vagrant启动报错The following SSH command responded with a non-zero exit status.
+
+
+解决  sudo rm -f /etc/udev/rules.d/70-persistent-net.rules 

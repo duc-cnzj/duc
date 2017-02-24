@@ -35,8 +35,9 @@ git commit --amend   				修改上一条的提交信息
 
 //回归版本
 git reset --hard  版本id				回到id的版本
-git rebase -i HEAD~2				将上两次的提交信息合并
-
+########################
+git rebase -i HEAD~2				将上两次的提交信息合并，其中选项为drop的操作会把那个版本所创建的文件也drop了
+###################
 //取消commit
 git reset --hard <commit_id>
 git push origin HEAD --force
