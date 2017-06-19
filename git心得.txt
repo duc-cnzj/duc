@@ -1,0 +1,123 @@
+git init 初始化
+git config --global user.name 'duc'
+git config --global user.email '1025434218@qq.com'
+
+git config --global color.ui auto 			提高命令输出的可读性
+git log 						查看提交日志
+git log --graph 					图表形式查看提交日志
+git log --pretty=short 					查看提交日志第一行
+git log 文件名   					查看某个文件的提交日志
+git log -p <文件名> 					查看<文件>提交所带来的变动
+
+git diff 						查看当前的工作树与暂存区的区别
+
+别名：
+git config alias.l log  -> 设置完后 git log 可以用 git l 代替
+alias l = "git log"  l 相当于 git log
+git config --global alias.l log 全局设置快捷键
+
+git add 文件名 						添加到仓库
+git status						查看状态
+git commit -m ""  提交  -am ''
+rm -rf 删除
+git rm 删除
+git push
+
+//分支
+git branch     						查看分支
+git branch  -a   					查看当前分支的相关信息
+git branch  -D 分支名   				删除分支	
+git checkout -b 分支名字     		创建分支
+git checkout  分支名字     			切换分支
+
+//merge
+git merge --no-ff 分支名    			为了明确记录下本次merge，加 --no-ff参数
+
+
+git commit --amend   				修改本次的提交信息
+
+
+git stash 					将别的分支上未‘提交’的移到一边，然后回到主分支进行操作，因为侧分支未修改的东西也会在主分支上显示出红色未修改，相当于工作台上将某个东西放在一边处理完其他事情后再拿回来
+git stash list
+git stash pop
+//回归版本
+git reset --hard  版本id 				回到id的版本
+########################
+git rebase -i HEAD~2				将上两次的提交信息合并，其中选项为drop的操作会把那个版本所创建的文件也drop了，s就是把修改信息合并到上一个pick
+常用的对commit的操作有5种：
+p, pick = 使用此commit。(p是pick命令的缩写，两种方式均支持)
+r, reword = 使用此commit， 编辑commit message
+e, edit = 使用此commit，但是不编辑commit message，保持原有commit message
+s, squash = 使用此commit，但是合并到前一个commit中去
+f, fixup = 和squash类似，但是放弃此commit的message
+commit应用的顺序可以调整，rebase操作将从上到下执行。
+如果不使用此commit，则删除此行。
+如果所有行都被删除，则放弃rebase操作。 
+###################
+//取消commit
+git reset --hard HEAD~1                              回归上一个版本，本地源码也回归
+git reset --soft                            回归上一个版本，只清除commit 不清除源码
+git push origin HEAD --force
+
+//git push
+git push -u origin master  将当期分支的内容推送到远程origin的master仓库
+
+
+
+git rebase {master}  侧分支做了修改，主分支也做了修改，侧分支想要合并新的主分支 用 
+
+//git pull
+git pull origin 分支名
+
+github 账号密码
+1025434218@qq.com
+duc123243
+######## log 别名
+l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+############
+在linux上生成密匙：http://blog.csdn.net/wfdtxz/article/details/8678982
+
+echo "# ddd" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:DuC-cnZj/TaskManager.git        添加远程仓库：origin为标识符
+git push -u origin master
+
+######### 自动部署到服务器
+webhook 是添加验证路由，去你的服务器上验证 webhook 中有secretkey，验证的是webhook中的 key 和服务器中env 中的 key 是否一样
+<?php
+// 1. sudo mkdir /var/www/.ssh
+// 2. sudo chown -R www-data:www-data /var/www/.ssh/
+// 3. ssh-keygen -t rsa -C "your_github_email"  在 home 目录执行
+// 4. cd /var/www 然后执行  sudo -Hu www-data ssh-keygen -t rsa
+// 5. sudo cat /var/www/.ssh/id_rsa.pub 这是部署公钥
+// 6. git config --global user.name "JellyBool"    git config --global user.email "your_github@email"
+// 7. sudo -Hu www-data git clone git@github.com:JellyBool/laravel-ubuntu.git
+// 8. 普通的 php 项目，可以直接使用 $headers = getallheaders();
+// 9. $signature = $headers['X-Hub-Signature'];
+// 10. routes 文件的配置： Route::post('/deploy','DeploymentController@deploy');
+// 11. csrf 路由 
+/*
+    protected $except = [
+        'deploy'
+    ];
+*/
+public function deploy(Request $request)
+{
+    $commands = ['cd /var/www/laravel-ubuntu', 'git pull'];
+    $signature = $request->header('X-Hub-Signature');
+    $payload = file_get_contents('php://input');
+    if ($this->isFromGithub($payload, $signature)) {
+        foreach ($commands as $command) {
+            shell_exec($command);
+        }
+        http_response_code(200);
+    } else {
+        abort(403);
+    }
+}
+private function isFromGithub($payload, $signature)
+{
+    return 'sha1=' . hash_hmac('sha1', $payload, env('GITHUB_DEPLOY_TOKEN'), false) === $signature;
+}
