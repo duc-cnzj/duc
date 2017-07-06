@@ -53,6 +53,15 @@ f, fixup = 和squash类似，但是放弃此commit的message
 commit应用的顺序可以调整，rebase操作将从上到下执行。
 如果不使用此commit，则删除此行。
 如果所有行都被删除，则放弃rebase操作。 
+
+git rebase {master}  侧分支做了修改，主分支也做了修改，侧分支想要合并新的主分支 用 
+
+二、解决冲突
+在rebase的过程中，也许会出现冲突(conflict). 在这种情况，Git会停止rebase并会让你去解决 冲突；在解决完冲突后，用"git-add"命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:
+$ git rebase --continue
+这样git会继续应用(apply)余下的补丁。
+在任何时候，你可以用--abort参数来终止rebase的行动，并且"mywork" 分支会回到rebase开始前的状态。
+$ git rebase --abort 取消rebase
 ###################
 //取消commit
 git reset --hard HEAD~1                              回归上一个版本，本地源码也回归
@@ -61,10 +70,10 @@ git push origin HEAD --force
 
 //git push
 git push -u origin master  将当期分支的内容推送到远程origin的master仓库
+ git push <远程主机名> <本地分支名>:<远程分支名>
 
 
 
-git rebase {master}  侧分支做了修改，主分支也做了修改，侧分支想要合并新的主分支 用 
 
 //git pull
 git pull origin 分支名
