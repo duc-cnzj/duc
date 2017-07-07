@@ -10,6 +10,7 @@ git log 文件名   					查看某个文件的提交日志
 git log -p <文件名> 					查看<文件>提交所带来的变动
 
 git diff 						查看当前的工作树与暂存区的区别
+git show <id>						查看某次提交的修改详情
 
 别名：
 git config alias.l log  -> 设置完后 git log 可以用 git l 代替
